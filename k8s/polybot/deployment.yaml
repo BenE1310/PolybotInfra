@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polybot
+  namespace: polybot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: polybot
+  template:
+    metadata:
+      labels:
+        app: polybot
+    spec:
+      dnsPolicy: ClusterFirst
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "5"
+      containers:
+        - name: polybot
+          image: bene1310/polybot:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: TELEGRAM_TOKEN
+              value: "7206937169:AAF8em0E9ABketbnmzU-2AsPCjSpugZ1NZo"
+          volumeMounts:
+            - name: certs-volume
+              mountPath: /app/certs
+              readOnly: true
+      volumes:
+        - name: certs-volume
+          secret:
+            secretName: polybot-certs

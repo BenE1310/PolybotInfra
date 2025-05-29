@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: polybot
+  namespace: polybot
+spec:
+  selector:
+    app: polybot
+  ports:
+    - name: https
+      protocol: TCP
+      port: 80            # 🔐 Exposed to Ingress
+      targetPort: 80    # 🧠 Container internal Flask port
+  type: ClusterIP

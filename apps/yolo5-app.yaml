@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: yolo5
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/bene1310/PolybotInfra.git
+    targetRevision: main
+    path: k8s/yolo5
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: yolo5
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
