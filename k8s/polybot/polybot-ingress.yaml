@@ -16,6 +16,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name
+                name: polybot-service  # ✅ fixed
                 port:
                   number: 80
